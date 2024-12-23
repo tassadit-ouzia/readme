@@ -20,10 +20,9 @@
 
 
 # 1. Description du projet
-Ce livrable présente la conception d'une base de données essentielle au bon fonctionnement du projet Vélib'. Elle est conçue pour centraliser et organiser toutes les informations nécessaires à la gestion des utilisateurs, des stations de vélos, des réservations et des historiques de recherches.
+Ce livrable présente la conception d'une base de données essentielle au bon fonctionnement du projet Vélib'. Elle est conçue pour organiser toutes les informations nécessaires à la gestion des utilisateurs, des stations de vélos, des réservations et des historiques de recherches.
 
 La base de données stocke des données clés telles que les informations des utilisateurs, leurs recherches sur les stations de vélos, ainsi que leurs réservations passées. Elle est structurée de manière à permettre un accès rapide et sécurisé à ces informations.
-
 En résumé, cette base de données est le pilier central du projet Vélib', garantissant une gestion efficace des données et offrant ainsi une expérience utilisateur optimale, fluide et personnalisée, indispensable au bon fonctionnement du site Vélib'.
  
 
@@ -128,7 +127,7 @@ Cette table contient les informations sur les types de vélos.
 
 **Colonnes principales :**
 - `id_velo` : Identifiant unique du type.
-- `type` : Type de vélo (électrique, classique).
+- `type` : Type de vélo (électrique, mecanique).
 
 ### 3. Table stations
 Cette table regroupe les informations de toutes les stations de vélos disponibles chez Vélib'.
@@ -163,12 +162,6 @@ Cette table stocke les recherches effectuées par les utilisateurs.
 - `station_id` : Référence à une station liée à la recherche (liée à `stations.station_id`) (elle est `NULL` si le terme recherché est une station non existante dans la table `stations`).
   
 
-**Relations :**
-Clés étrangères pour relier cette table à :
-- `client_id → users.id`
-- `station_id → stations.station_id`
-
-
 ##  Création des vues
 
 Les vues permettent de simplifier les requêtes et de présenter les données sous une forme plus lisible en combinant plusieurs tables.
@@ -187,7 +180,7 @@ Elle combine les données des tables suivantes :
 - **`stations`** : Informations sur la station de départ ou d'arrivée.
 - **`velo`** : Type de vélo réservé (électrique ou mecanique).
 
-## 5. Diagramme UML
+## Diagramme UML
 
 Le diagramme UML (Unified Modeling Language) ci-dessous illustre la structure du système et la manière dont les différentes entités interagissent les unes avec les autres dans le cadre du projet Vélib'. Il représente les relations entre les principales entités, telles que les utilisateurs, les vélos, les stations et les réservations. 
 
@@ -439,4 +432,38 @@ Il est conseillé de programmer l'exécution régulière de ce script, par exemp
 **_Le fichier contenant le scripte d'insertion : `Insertion.py`_**
 
 
+## 6. Test de l'application
+Une fois que nous avons complété toutes les étapes, voila ce qui faut faire:
 
+# 6.1 Vérification des Opérations de Base sur la Base de Données
+La première étape consiste à vérifier que les opérations de base (telles que l'insertion, la mise à jour et la suppression) fonctionnent correctement dans la base de données.
+
+# 1. Tester l'Insertion des Stations
+Pour tester si l'insertion des stations fonctionne bien, nous pouvons exécuter une simple requête SQL pour afficher les stations présentes dans la table stations. Cela nous permet de vérifier que les données ont été correctement insérées après l'exécution du script.
+```sql
+SELECT * FROM stations;
+```
+Si tout est correct, cette requête devrait retourner toutes les stations que nous avons insérées via l'API.
+
+# 2. Testez les Mises à Jour
+Nous pouvons également tester les mises à jour des stations. Pour cela, nous vérifions si les informations d'une station ont été modifiées correctement après l'exécution du script. Nous pouvons modifier manuellement une station dans l'API (comme changer la latitude, la longitude, ou le nom), puis relancer le script d'insertion et tester si la mise à jour a bien été effectuée dans la base de données.
+```sql
+SELECT * FROM stations WHERE station_id = 1;
+```
+Si les informations retournées sont différentes de celles initiales, cela signifie que la mise à jour a bien été effectuée.
+
+## 7.Conclusion
+En conclusion, les tests effectués sur notre application nous ont permis de valider le bon fonctionnement de l'ensemble du système, allant de l'insertion des données dans la base de données jusqu'à l'interaction avec l'API. Nous avons vérifié que les opérations de base (insertion, mise à jour, suppression) se déroulent correctement au niveau de la base de données, et que l'API répond bien aux requêtes de récupération et de modification des données.
+
+
+Ainsi, l'application est désormais prête à être déployée dans un environnement de production. Les tests effectués ont montré que l'architecture du système est solide et que les processus de gestion des données sont efficaces. Nous pouvons maintenant avancer vers la phase de déploiement en toute confiance.
+
+## . Auteurs
+Ce projet a été réalisé dans le cadre de notre travail de groupe Paris. Les membres de l'équipe sont :  Tassadit
+                                                                                                        Kenza
+                                                                                                        Yannel                
+                                                                                                        Youssouf
+                                                                                                        Oumaima
+
+
+Nous avons collaboré pour concevoir, développer et déployer cette application, en combinant nos compétences en programmation, conception de bases de données, et développement web.
